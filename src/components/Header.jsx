@@ -6,7 +6,9 @@ import logo from "../assets/argentBankLogo.png";
 function Header() {
   return (
     <HeaderWrapper>
-      <Logo src={logo} />
+      <NavLink to="/">
+        <Logo src={logo} />
+      </NavLink>
       <Navbar>
         <NavLink to="/signin">Sign in</NavLink>
       </Navbar>
