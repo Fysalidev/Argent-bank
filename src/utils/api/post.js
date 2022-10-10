@@ -1,13 +1,21 @@
+const userDatas = {
+  email: "steve@rogers.com",
+  password: "password456",
+};
+
 const getToken = async (login) => {
   const response = await fetch("http://localhost:3001/api/v1/user/login", {
     method: "POST",
-    header: {
-      "Content-Type": "application/json",
+    headers: {
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(login),
   });
+
   const data = await response.json();
-  console.log(data.message);
+  console.log(data.status)
+  console.log(data.message)
+  console.log(data)
   return data;
 };
 
@@ -19,9 +27,5 @@ const getToken = async (login) => {
 //   return response;
 // };
 
-const userDatas = {
-  email: "tony@stark.com",
-  password: "password123",
-};
 
 getToken(userDatas);
