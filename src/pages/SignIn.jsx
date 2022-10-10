@@ -8,10 +8,6 @@ function SignIn() {
   const [checked, setChecked] = useState(false);
   const [payload, setPayload] = useState({});
 
-  console.log(email);
-  console.log(password);
-  console.log(checked);
-
   const handleChangeMail = (event) => {
     const name = event.target.value;
     setMail(name);
@@ -31,10 +27,11 @@ function SignIn() {
     setPayload(payload);
   };
 
-  useEffect(() => {
-    console.log("Mise à jour du payload");
-    console.log(payload);
-  }, [payload]);
+
+   useEffect(() => {
+    console.log("Mise à jour du payload")
+    console.log(payload)
+   },[payload]);
 
   return (
     <main className="main bg-dark">
@@ -70,9 +67,7 @@ function SignIn() {
             className="sign-in-button"
             type="submit"
             value="Sign In"
-            onClick={() => {
-              handleSubmit();
-            }}
+            onSubmit={()=>{handleSubmit()}}
           />
         </form>
       </section>
