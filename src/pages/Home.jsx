@@ -3,7 +3,7 @@ import chat from "../assets/icon-chat.png";
 import money from "../assets/icon-money.png";
 import security from "../assets/icon-security.png";
 
-import "../utils/api/post";
+/* import "../utils/api/post"; */
 
 function Home() {
   return (

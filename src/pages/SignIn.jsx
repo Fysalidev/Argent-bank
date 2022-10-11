@@ -1,20 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
+import {getToken} from "../utils/api/post"
+
 
 function SignIn() {
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
-  const [payload, setPayload] = useState({});
+  const [token, setToken] = useState({})
 
-  const handleChangeMail = (event) => {
-    const name = event.target.value;
+  const handleChangeMail = (e) => {
+    const name = e.target.value;
     setMail(name);
   };
 
-  const handleChangePassword = (event) => {
-    const password = event.target.value;
+  const handleChangePassword = (e) => {
+    const password = e.target.value;
     setPassword(password);
   };
 
@@ -22,16 +23,14 @@ function SignIn() {
     setChecked(!checked);
   };
 
-  const handleSubmit = () => {
-    const payload = { email: email, password: password };
-    setPayload(payload);
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if(email.length !== 0 && password.length !== 0 ){
+      const payload = { email: email, password: password };
+      setToken(await getToken(payload))
+      console.log(token)
+    }
   };
-
-
-   useEffect(() => {
-    console.log("Mise à jour du payload")
-    console.log(payload)
-   },[payload]);
 
   return (
     <main className="main bg-dark">
@@ -67,7 +66,7 @@ function SignIn() {
             className="sign-in-button"
             type="submit"
             value="Sign In"
-            onSubmit={()=>{handleSubmit()}}
+            onClick={(e) => { handleSubmit(e) }}
           />
         </form>
       </section>
