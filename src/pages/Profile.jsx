@@ -1,6 +1,20 @@
 import React from 'react'
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Api from "../utils/api/Api";
+import {selectUserJWT, selectUserLogin} from "../utils/redux/selectors"
 
-function Dashboard() {
+function Profile() {
+  const isUserLogIn = useSelector(selectUserLogin);
+  const JWT = useSelector(selectUserJWT);
+  const dispatch = useDispatch
+
+  const profile = async () => await new Api().loadUser(JWT);
+  console.log(profile.body)
+  if(profile.status === 200){
+    dispatch(profile)
+  }
+
   return (
     <main className="main bg-dark">
       <div className="header">
@@ -46,4 +60,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard
+export default Profile

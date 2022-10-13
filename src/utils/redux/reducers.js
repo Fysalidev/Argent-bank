@@ -6,6 +6,13 @@ const userSlice = createSlice({
   initialState: {
     login: false,
     token: null,
+    id: null,
+    email: null,
+    firstName: null,
+    lastName: null,
+    createdAt: null,
+    createdAt: null,
+
   },
   reducers: {
 
@@ -22,6 +29,17 @@ const userSlice = createSlice({
           state.token = null;
         }
     },
+
+    loadUser: (state, action) => {
+      if (action.payload.status === 200){
+        state.id = action.payload.body.id
+        state.email = action.payload.body.email
+        state.firstName = action.payload.body.firsName
+        state.lastName = action.payload.body.lastName
+        state.createdAt = action.payload.body.createdAt
+        state.updatedAt = action.payload.body.updatedAt
+      }
+    }
   },
 });
 

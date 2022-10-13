@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
-import Dashboard from "../pages/Dashboard";
+import Profile from "../pages/Profile";
 import Error404 from "../pages/Error404";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
       <Footer />

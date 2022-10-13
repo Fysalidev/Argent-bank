@@ -1,24 +1,21 @@
-import React, { useEffect } from "react";
 import { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import Api from "../utils/api/ApiServices";
+import Api from "../utils/api/Api";
 import { logIn } from "../utils/redux/reducers"
-import {selectUserLogin} from "../utils/redux/selectors"
-
-
+import { selectUserLogin } from "../utils/redux/selectors"
 
 function SignIn() {
   const isUserLogIn = useSelector(selectUserLogin)
-  
+
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
   const [Error, setError] = useState("")
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const handleChangeMail = (e) => {
     const name = e.target.value;
@@ -39,15 +36,15 @@ function SignIn() {
 
     if (email.length !== 0 && password.length !== 0) {
       const log = await new Api().logUser(email, password);
-      log.status !== 200 ? setError(log.message) : (dispatch(logIn(log.body.token)));
+      log.status !== 200 ? setError(log.message): (dispatch(logIn(log.body.token)));
     }
   };
 
   useEffect(() => {
-    if(isUserLogIn){
-      navigate('/dashboard')
+    if (isUserLogIn) {
+      navigate('/profile')
     }
-  },[isUserLogIn]);
+  }, [isUserLogIn]);
 
   return (
     <main className="main bg-dark">
