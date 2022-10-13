@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { logIn } from "../utils/redux/reducers"
-/* import ApiServices from "../utils/api/ApiServices"; */
 import Api from "../utils/api/ApiServices";
+import { logIn } from "../utils/redux/reducers"
+import {selectUserLogin} from "../utils/redux/selectors"
 
 
 
 function SignIn() {
-  const isUserLogIn = useSelector(state => state.user.login)
+  const isUserLogIn = useSelector(selectUserLogin)
   
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
