@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import {getToken} from "../utils/api/post"
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { logIn } from "../utils/redux/reducers"
+/* import ApiServices from "../utils/api/ApiServices"; */
+import Api from "../utils/api/ApiServices";
+
 
 
 function SignIn() {
+  const isUserLogIn = useSelector(state => state.user.login)
+  
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
-  const [token, setToken] = useState({})
+  const [Error, setError] = useState("")
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const handleChangeMail = (e) => {
     const name = e.target.value;
@@ -25,12 +36,18 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if(email.length !== 0 && password.length !== 0 ){
-      const payload = { email: email, password: password };
-      setToken(await getToken(payload))
-      console.log(token)
+
+    if (email.length !== 0 && password.length !== 0) {
+      const log = await new Api().logUser(email, password);
+      log.status !== 200 ? setError(log.message) : (dispatch(logIn(log.body.token)));
     }
   };
+
+  useEffect(() => {
+    if(isUserLogIn){
+      navigate('/dashboard')
+    }
+  },[isUserLogIn]);
 
   return (
     <main className="main bg-dark">
@@ -43,7 +60,7 @@ function SignIn() {
             <input
               type="email"
               name="name"
-              onChange={(event) => handleChangeMail(event)}
+              onChange={(e) => handleChangeMail(e)}
             />
           </div>
           <div className="input-wrapper">
@@ -51,7 +68,7 @@ function SignIn() {
             <input
               type="password"
               name="name"
-              onChange={(event) => handleChangePassword(event)}
+              onChange={(e) => handleChangePassword(e)}
             />
           </div>
           <div className="input-remember">
@@ -68,6 +85,7 @@ function SignIn() {
             value="Sign In"
             onClick={(e) => { handleSubmit(e) }}
           />
+          <p>{Error}</p>
         </form>
       </section>
     </main>

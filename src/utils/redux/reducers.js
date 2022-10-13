@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { redirect } from "react-router";
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: "user",
   initialState: {
     login: false,
@@ -9,13 +10,17 @@ export const userSlice = createSlice({
   reducers: {
 
     logIn: (state, action) => {
-        state.login = true;
-        state.token = action.payload;
+        if (state.login === false){
+          state.login = true;
+          state.token = action.payload;
+        }
     },
 
     logOut: (state) => {
-        state.login = false;
-        state.token = null;
+        if (state.login === true){
+          state.login = false;
+          state.token = null;
+        }
     },
   },
 });
