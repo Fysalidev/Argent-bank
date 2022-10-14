@@ -1,6 +1,6 @@
 class Api {
 
-    logUser = async (email, password) => {
+    tokenRequest = async (email, password) => {
 
         try {
             const headers = new Headers();
@@ -10,10 +10,14 @@ class Api {
                 body: JSON.stringify({ email, password }),
                 headers
             };
-            const response = await fetch("http://localhost:3001/api/v1/user/login", options);
-            return await response.json()
+            const request = await fetch("http://localhost:3001/api/v1/user/login", options);
+            console.log(request)
+            const response = await request.json()
+            console.log(response.body.token)
+            return response.body.token
+
         } catch (error) {
-            return { status: 500, message: 'Error : Failled to fetch' }
+            return false
         }
     }
 
@@ -25,6 +29,7 @@ class Api {
             headers
         };
         const response = await fetch('http://localhost:3001/api/v1/user/profile', options);
+        console.log(response)
         return await response.json();
     }
 }

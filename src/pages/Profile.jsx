@@ -2,18 +2,25 @@ import React from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Api from "../utils/api/Api";
-import {selectUserJWT, selectUserLogin} from "../utils/redux/selectors"
+import { selectUserJWT, selectUserLogin } from "../utils/redux/selectors"
+import { setUser } from "../utils/redux/reducers"
+import { selectUser } from "../utils/redux/selectors"
 
 function Profile() {
   const isUserLogIn = useSelector(selectUserLogin);
   const JWT = useSelector(selectUserJWT);
-  const dispatch = useDispatch
+  const dispatch = useDispatch()
 
-  const profile = async () => await new Api().loadUser(JWT);
-  console.log(profile.body)
-  if(profile.status === 200){
-    dispatch(profile)
-  }
+  useEffect(() => {
+    async function requestUserProfile() {
+      const response = await new Api().loadUser(JWT)
+      console.log(response)
+      if (response.status === 200) {
+        dispatch(setUser(response.body))
+      }
+    }
+    requestUserProfile()
+  }, [JWT]);
 
   return (
     <main className="main bg-dark">

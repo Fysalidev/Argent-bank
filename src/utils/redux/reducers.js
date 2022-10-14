@@ -1,22 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { redirect } from "react-router";
+import Api from "../api/Api"
+
+const api = new Api()
+const tokenRequest = (email, password) => api.tokenRequest(email, password);
+const userRequest = (token) => api.userRequest()
+
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    login: false,
-    token: null,
-    id: null,
-    email: null,
-    firstName: null,
-    lastName: null,
-    createdAt: null,
-    createdAt: null,
-
+    token: false,
+    user : false,
   },
+
   reducers: {
 
     logIn: (state, action) => {
+        
+        const token  = tokenRequest(action.payload.email, action.payload.password)
+
+        if(token){
+          state.token = token
+          const {} = userRequest(token)
+          console.log()
+          //Stop pour aujourd'hui....
+        }
+
+
         if (state.login === false){
           state.login = true;
           state.token = action.payload;
@@ -27,21 +37,15 @@ const userSlice = createSlice({
         if (state.login === true){
           state.login = false;
           state.token = null;
+          state.user = null;
         }
     },
 
-    loadUser: (state, action) => {
-      if (action.payload.status === 200){
-        state.id = action.payload.body.id
-        state.email = action.payload.body.email
-        state.firstName = action.payload.body.firsName
-        state.lastName = action.payload.body.lastName
-        state.createdAt = action.payload.body.createdAt
-        state.updatedAt = action.payload.body.updatedAt
-      }
-    }
+    setUser: (state, action) => {
+      state.user = action.payload
+    },
   },
 });
 
-export const { logIn, logOut } = userSlice.actions;
+export const { logIn, logOut, setUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;

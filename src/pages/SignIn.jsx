@@ -14,8 +14,8 @@ function SignIn() {
   const [checked, setChecked] = useState(false);
   const [Error, setError] = useState("")
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChangeMail = (e) => {
     const name = e.target.value;
@@ -35,8 +35,9 @@ function SignIn() {
     e.preventDefault()
 
     if (email.length !== 0 && password.length !== 0) {
-      const log = await new Api().logUser(email, password);
-      log.status !== 200 ? setError(log.message): (dispatch(logIn(log.body.token)));
+      /* const log = await new Api().logUser(email, password);
+      log.status !== 200 ? setError(log.message): (dispatch(logIn(log.body.token))) */;
+      dispatch (logIn({email : email, password: password}))
     }
   };
 
