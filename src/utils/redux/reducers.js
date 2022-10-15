@@ -19,9 +19,9 @@ const userSlice = createSlice({
         
         const token  = tokenRequest(action.payload.email, action.payload.password)
 
-        if(token){
-          state.token = token
+        if(state.token){
           const {} = userRequest(token)
+          state.token = token
           console.log()
           //Stop pour aujourd'hui....
         }
