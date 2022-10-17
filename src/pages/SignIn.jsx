@@ -2,7 +2,6 @@ import { useState } from "react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import Api from "../utils/api/Api";
 import { logIn } from "../utils/redux/reducers"
 import { selectUserLogin } from "../utils/redux/selectors"
 
@@ -35,9 +34,7 @@ function SignIn() {
     e.preventDefault()
 
     if (email.length !== 0 && password.length !== 0) {
-      /* const log = await new Api().logUser(email, password);
-      log.status !== 200 ? setError(log.message): (dispatch(logIn(log.body.token))) */;
-      dispatch (logIn({email : email, password: password}))
+      dispatch(logIn({ email: email, password: password }))
     }
   };
 

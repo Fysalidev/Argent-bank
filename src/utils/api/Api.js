@@ -32,5 +32,18 @@ class Api {
         console.log(response)
         return await response.json();
     }
+
+    updateRequest = async (firstName, lastName, JWT) => {
+        const headers = new Headers();
+        headers.append('Authorization', `Bearer ${JWT}`);
+        const options = {
+            method: 'PUT',
+            body: JSON.stringify({ firstName, lastName }),
+            headers
+        }
+        const request = await fetch('http://localhost:3001/api/v1/user/profile', options);
+        console.log(request);
+        return await request.json();
+    }
 }
 export default Api

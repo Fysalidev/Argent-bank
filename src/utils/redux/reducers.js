@@ -3,8 +3,7 @@ import Api from "../api/Api"
 
 const api = new Api()
 const tokenRequest = (email, password) => api.tokenRequest(email, password);
-const userRequest = (token) => api.userRequest()
-
+const userRequest = (token) => api.userRequest(token)
 
 const userSlice = createSlice({
   name: "user",
@@ -26,7 +25,6 @@ const userSlice = createSlice({
           //Stop pour aujourd'hui....
         }
 
-
         if (state.login === false){
           state.login = true;
           state.token = action.payload;
@@ -35,7 +33,6 @@ const userSlice = createSlice({
 
     logOut: (state) => {
         if (state.login === true){
-          state.login = false;
           state.token = null;
           state.user = null;
         }
