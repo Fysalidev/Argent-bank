@@ -1,17 +1,17 @@
 import { useState } from "react";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { logIn } from "../utils/redux/reducers"
-import { selectUserLogin } from "../utils/redux/selectors"
+import { logIn, setUser} from "../utils/redux/reducers"
+import Api from "../utils/api/Api"
 
 function SignIn() {
-  const isUserLogIn = useSelector(selectUserLogin)
 
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [checked, setChecked] = useState(false);
-  const [Error, setError] = useState("")
+  const [checked, setChecked] = useState(false)
+  /* const [Error, setError] = useState("") */
+
+  const Error = "Message d'erreur ici si besoin"
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,22 +27,27 @@ function SignIn() {
   };
 
   const handleChangeCheckbox = () => {
-    setChecked(!checked);
+    setChecked(!checked)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (email.length !== 0 && password.length !== 0) {
-      dispatch(logIn({ email: email, password: password }))
+      
+      const token = await new Api().tokenRequest(email, password)
+      dispatch(logIn(token))
+
+      if(token){
+        const user = await new Api().userRequest(token)
+        dispatch(setUser(user.body))
+        
+        if (user && token) {
+          navigate('/profile')
+        }
+      }
     }
   };
-
-  useEffect(() => {
-    if (isUserLogIn) {
-      navigate('/profile')
-    }
-  }, [isUserLogIn]);
 
   return (
     <main className="main bg-dark">
@@ -70,7 +75,7 @@ function SignIn() {
             <input
               type="checkbox"
               checked={checked}
-              onChange={handleChangeCheckbox}
+              onChange = {() => handleChangeCheckbox()}
             />
             <label>Remember me</label>
           </div>

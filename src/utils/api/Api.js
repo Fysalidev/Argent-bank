@@ -11,9 +11,7 @@ class Api {
                 headers
             };
             const request = await fetch("http://localhost:3001/api/v1/user/login", options);
-            console.log(request)
             const response = await request.json()
-            console.log(response.body.token)
             return response.body.token
 
         } catch (error) {
@@ -21,16 +19,20 @@ class Api {
         }
     }
 
-    loadUser = async (JWT) => {
-        const headers = new Headers();
-        headers.append('Authorization', `Bearer ${JWT}`);
-        const options = {
-            method: 'POST',
-            headers
-        };
-        const response = await fetch('http://localhost:3001/api/v1/user/profile', options);
-        console.log(response)
-        return await response.json();
+    userRequest = async (JWT) => {
+        try {
+            const headers = new Headers();
+            headers.append('Authorization', `Bearer ${JWT}`);
+            const options = {
+                method: 'POST',
+                headers
+            };
+            const response = await fetch('http://localhost:3001/api/v1/user/profile', options);
+            return await response.json();
+
+        } catch (error) {
+            return false
+        }
     }
 
     updateRequest = async (firstName, lastName, JWT) => {

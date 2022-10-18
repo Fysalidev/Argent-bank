@@ -1,34 +1,29 @@
 import React from 'react'
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Api from "../utils/api/Api";
-import { selectUserJWT, selectUserLogin } from "../utils/redux/selectors"
-import { setUser } from "../utils/redux/reducers"
-import { selectUser } from "../utils/redux/selectors"
+import { useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { selectUser, selectUserLogin } from "../utils/redux/selectors"
+import { useNavigate } from "react-router";
 
 function Profile() {
-  const isUserLogIn = useSelector(selectUserLogin);
-  const JWT = useSelector(selectUserJWT);
-  const dispatch = useDispatch()
 
+  const isUserLogIn = useSelector(selectUserLogin)
+  const user = useSelector(selectUser)
+  const navigate = useNavigate();
+
+  
   useEffect(() => {
-    async function requestUserProfile() {
-      const response = await new Api().loadUser(JWT)
-      console.log(response)
-      if (response.status === 200) {
-        dispatch(setUser(response.body))
-      }
+    if(!isUserLogIn || !user){
+      navigate('/')
     }
-    requestUserProfile()
-  }, [JWT]);
+  },[isUserLogIn, user, navigate]);
 
-  return (
+  return (isUserLogIn && user) ? (
     <main className="main bg-dark">
       <div className="header">
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {user.firstName} {user.lastName}
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>
@@ -64,7 +59,7 @@ function Profile() {
         </div>
       </section>
     </main>
-  );
+  ): null;
 }
 
 export default Profile

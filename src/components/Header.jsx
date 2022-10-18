@@ -2,13 +2,14 @@ import logo from "../assets/argentBankLogo.png";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { selectUserLogin } from "../utils/redux/selectors"
+import { selectUserLogin, selectUser } from "../utils/redux/selectors"
 import { logOut } from "../utils/redux/reducers";
 
 function Header() {
-
+  
   const dispatch = useDispatch()
   const isUserLogIn = useSelector(selectUserLogin)
+  const user = useSelector(selectUser)
 
   return (
     <nav className="main-nav">
@@ -27,9 +28,9 @@ function Header() {
         </NavLink>
           :
           <div>
-            <NavLink className="main-nav-item" to="">
+            <NavLink className="main-nav-item" to="/">
               <i className="fa fa-user-circle"></i>
-              <span> userName</span>
+              <span> {user.firstName}</span>
             </NavLink>
             <NavLink className="main-nav-item" to="/">
               <i className="fa-solid fa-right-from-bracket"></i>
@@ -37,8 +38,6 @@ function Header() {
             </NavLink>
           </div>
         }
-
-
       </div>
     </nav>
   );
