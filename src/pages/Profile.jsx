@@ -1,32 +1,24 @@
-import React from 'react'
-import { useEffect } from 'react';
+import React from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectUser, selectUserLogin } from "../utils/redux/selectors"
+import { selectUser, selectUserLogin } from "../utils/redux/selectors";
 import { useNavigate } from "react-router";
+import UpdateForm from "../components/UpdateForm";
 
 function Profile() {
-
   const isUserLogIn = useSelector(selectUserLogin);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (!isUserLogIn || !user) {
-      navigate('/');
+      navigate("/");
     }
   }, [isUserLogIn, user, navigate]);
 
-  return (isUserLogIn && user) ? (
+  return isUserLogIn && user ? (
     <main className="main bg-dark">
-      <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          {user.firstName} {user.lastName}
-        </h1>
-        <button className="edit-button">Edit Name</button>
-      </div>
+      <UpdateForm user={user} />
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
@@ -62,4 +54,4 @@ function Profile() {
   ) : null;
 }
 
-export default Profile
+export default Profile;
