@@ -12,10 +12,10 @@ class Api {
             };
             const request = await fetch("http://localhost:3001/api/v1/user/login", options);
             const response = await request.json()
-            return response.body.token
+            return response
 
         } catch (error) {
-            return false
+            return {status: 500, message: "Problème connexion api"}
         }
     }
 

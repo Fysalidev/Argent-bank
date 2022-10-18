@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { logIn, setUser} from "../utils/redux/reducers"
+import { logIn, setUser } from "../utils/redux/reducers"
 import Api from "../utils/api/Api"
 
 function SignIn() {
@@ -9,9 +9,9 @@ function SignIn() {
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false)
-  /* const [Error, setError] = useState("") */
+  const [Error, setError] = useState("")
 
-  const Error = "Message d'erreur ici si besoin"
+  /* const Error = "Message d'erreur ici si besoin" */
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,24 +27,33 @@ function SignIn() {
   };
 
   const handleChangeCheckbox = () => {
-    setChecked(!checked)
+    setChecked(!checked);
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (email.length !== 0 && password.length !== 0) {
-      
-      const token = await new Api().tokenRequest(email, password)
-      dispatch(logIn(token))
 
-      if(token){
-        const user = await new Api().userRequest(token)
-        dispatch(setUser(user.body))
-        
-        if (user && token) {
-          navigate('/profile')
+      setError("");
+
+      const tokenRequest = await new Api().tokenRequest(email, password)
+      console.log(tokenRequest)
+
+      if (tokenRequest.status === 200) {
+        const token = tokenRequest.body.token;
+        const userRequest = await new Api().userRequest(token);
+
+        if (userRequest.status === 200) {
+          const user = userRequest.body
+          dispatch(logIn(token));
+          dispatch(setUser(user));
+          navigate('/profile');
+        } else {
+          setError(userRequest.message)
         }
+      } else {
+        setError(tokenRequest.message)
       }
     }
   };
@@ -75,7 +84,7 @@ function SignIn() {
             <input
               type="checkbox"
               checked={checked}
-              onChange = {() => handleChangeCheckbox()}
+              onChange={() => handleChangeCheckbox()}
             />
             <label>Remember me</label>
           </div>

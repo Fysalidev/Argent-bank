@@ -6,16 +6,16 @@ import { useNavigate } from "react-router";
 
 function Profile() {
 
-  const isUserLogIn = useSelector(selectUserLogin)
-  const user = useSelector(selectUser)
+  const isUserLogIn = useSelector(selectUserLogin);
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
 
-  
+
   useEffect(() => {
-    if(!isUserLogIn || !user){
-      navigate('/')
+    if (!isUserLogIn || !user) {
+      navigate('/');
     }
-  },[isUserLogIn, user, navigate]);
+  }, [isUserLogIn, user, navigate]);
 
   return (isUserLogIn && user) ? (
     <main className="main bg-dark">
@@ -59,7 +59,7 @@ function Profile() {
         </div>
       </section>
     </main>
-  ): null;
+  ) : null;
 }
 
 export default Profile
