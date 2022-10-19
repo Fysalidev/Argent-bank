@@ -5,16 +5,14 @@ import { logIn, setUser } from "../utils/redux/reducers"
 import Api from "../utils/api/Api"
 
 function SignIn() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false)
   const [Error, setError] = useState("")
 
-  /* const Error = "Message d'erreur ici si besoin" */
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleChangeMail = (e) => {
     const name = e.target.value;

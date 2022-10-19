@@ -28,7 +28,7 @@ function Header() {
         </NavLink>
           :
           <div>
-            <NavLink className="main-nav-item" to="/">
+            <NavLink className="main-nav-item" to="/signin">
               <i className="fa fa-user-circle"></i>
               <span> {user.firstName}</span>
             </NavLink>

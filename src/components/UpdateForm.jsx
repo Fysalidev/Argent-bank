@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../utils/redux/selectors";
+import { selectUser, selectUserJWT } from "../utils/redux/selectors";
+import Api from "../utils/api/Api";
 
 function UpdateForm() {
   const user = useSelector(selectUser);
+  const token = useSelector(selectUserJWT);
   const [formIsLocked, setFormIsLocked] = useState(true);
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const [lastNameInput, setLastNameInput] = useState("")
+  const [firstName, setFirstNameInput] = useState("");
+  const [lastName, setLastNameInput] = useState("");
 
-  const updateRequest = () => {
-  
-  }
+  console.log(firstName);
+  console.log(lastName);
+
+  const request = async () => {
+    console.log(firstName);
+    console.log(lastName);
+    
+    await new Api().updateRequest(
+      firstName,
+      lastName,
+      token
+    );
+  };
 
   return (
     <div className="header">
@@ -30,11 +42,21 @@ function UpdateForm() {
       ) : (
         <div>
           <div>
-            <input type="text" placeholder={user.firstName} />
-            <input type="text" placeholder={user.lastName} />
+            <input
+              type="text"
+              placeholder={user.firstName}
+              onChange={(e) => setFirstNameInput(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder={user.lastName}
+              onChange={(e) => setLastNameInput(e.target.value)}
+            />
           </div>
           <div>
-            <button className="edit-button">Save</button>
+            <button className="edit-button" onClick={() => request()}>
+              Save
+            </button>
             <button
               className="edit-button"
               onClick={() => setFormIsLocked(!formIsLocked)}
