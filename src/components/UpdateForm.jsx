@@ -1,27 +1,29 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser, selectUserJWT } from "../utils/redux/selectors";
+import { updateUser } from "../utils/redux/reducers";
 import Api from "../utils/api/Api";
 
 function UpdateForm() {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const token = useSelector(selectUserJWT);
   const [formIsLocked, setFormIsLocked] = useState(true);
   const [firstName, setFirstNameInput] = useState("");
   const [lastName, setLastNameInput] = useState("");
 
-  console.log(firstName);
-  console.log(lastName);
-
   const request = async () => {
     console.log(firstName);
     console.log(lastName);
-    
-    await new Api().updateRequest(
-      firstName,
-      lastName,
-      token
-    );
+
+    const req = await new Api().updateRequest(firstName, lastName, token);
+
+    if (req.status === 200) {
+      const firstName = req.body.firstName;
+      const lastName = req.body.lastName;
+      dispatch(updateUser({ firstName, lastName }));
+      setFormIsLocked(true)
+    }
   };
 
   return (

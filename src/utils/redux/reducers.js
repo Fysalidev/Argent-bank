@@ -16,9 +16,9 @@ const userSlice = createSlice({
 
     logOut: (state) => {
       if (state.isLogIn === true) {
+        state.isLogIn = false;
         state.token = false;
         state.user = false;
-        state.isLogIn = false;
       }
     },
 
@@ -26,8 +26,13 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isLogIn = true;
     },
+
+    updateUser: (state,action)=> {
+      state.user.firstName = action.payload.firstName
+      state.user.lastName = action.payload.lastName
+    }
   },
 });
 
-export const { logIn, logOut, setUser } = userSlice.actions;
+export const { logIn, logOut, setUser, updateUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;

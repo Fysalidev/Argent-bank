@@ -47,17 +47,11 @@ class Api {
       body: JSON.stringify({ firstName, lastName }),
       headers,
     };
-    console.log(headers);
-    console.log(options);
     const request = await fetch(
       "http://localhost:3001/api/v1/user/profile",
       options
     );
-
-    console.log(request);
-
     const response = await request.json();
-    console.log(response.body);
     return response;
   };
 }
