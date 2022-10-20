@@ -13,16 +13,13 @@ function UpdateForm() {
   const [lastName, setLastNameInput] = useState("");
 
   const request = async () => {
-    console.log(firstName);
-    console.log(lastName);
-
     const req = await new Api().updateRequest(firstName, lastName, token);
 
     if (req.status === 200) {
       const firstName = req.body.firstName;
       const lastName = req.body.lastName;
       dispatch(updateUser({ firstName, lastName }));
-      setFormIsLocked(true)
+      setFormIsLocked(true);
     }
   };
 

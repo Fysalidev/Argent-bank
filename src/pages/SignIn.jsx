@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { logIn, setUser } from "../utils/redux/reducers"
-import Api from "../utils/api/Api"
+import { logIn, setUser } from "../utils/redux/reducers";
+import Api from "../utils/api/Api";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -10,9 +10,8 @@ function SignIn() {
 
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [checked, setChecked] = useState(false)
-  const [Error, setError] = useState("")
-
+  const [checked, setChecked] = useState(false);
+  const [Error, setError] = useState("");
 
   const handleChangeMail = (e) => {
     const name = e.target.value;
@@ -32,26 +31,25 @@ function SignIn() {
     e.preventDefault();
 
     if (email.length !== 0 && password.length !== 0) {
-
       setError("");
 
-      const tokenRequest = await new Api().tokenRequest(email, password)
-      console.log(tokenRequest)
+      const tokenRequest = await new Api().tokenRequest(email, password);
+      console.log(tokenRequest);
 
       if (tokenRequest.status === 200) {
         const token = tokenRequest.body.token;
         const userRequest = await new Api().userRequest(token);
 
         if (userRequest.status === 200) {
-          const user = userRequest.body
+          const user = userRequest.body;
           dispatch(logIn(token));
           dispatch(setUser(user));
-          navigate('/profile');
+          navigate("/profile");
         } else {
-          setError(userRequest.message)
+          setError(userRequest.message);
         }
       } else {
-        setError(tokenRequest.message)
+        setError(tokenRequest.message);
       }
     }
   };
@@ -90,7 +88,9 @@ function SignIn() {
             className="sign-in-button"
             type="submit"
             value="Sign In"
-            onClick={(e) => { handleSubmit(e) }}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
           />
           <p>{Error}</p>
         </form>
