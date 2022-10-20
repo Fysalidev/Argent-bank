@@ -1,11 +1,11 @@
+import { ACCOUNTS } from "../data/mockup";
 import React from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { selectUser, selectUserLogin } from "../utils/redux/selectors";
-import { useNavigate } from "react-router";
 import UpdateForm from "../components/UpdateForm";
 import AccountCard from "../components/AccountCard";
-import { ACCOUNTS } from "../data/mockup";
 
 function Profile() {
   const isUserLogIn = useSelector(selectUserLogin);
@@ -24,7 +24,7 @@ function Profile() {
       <h2 className="sr-only">Accounts</h2>
       {ACCOUNTS.map((account, index) => (
         <AccountCard
-          key={index}
+          key={`account${index}`}
           title={account.title}
           amount={account.amount}
           description={account.description}
