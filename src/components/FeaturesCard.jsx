@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 
 /**
  * FeaturesCards
- * @param { string } icon
- * @param { string } alt
- * @param { string } title
- * @param { string } text
+ * @param { object } props - FeaturesCard Content
+ * @param { string } props.icon - Feature Picture
+ * @param { string } props.alt - Feature Picture description
+ * @param { string } props.title - Feature title
+ * @param { string } props.text - Feature text
  * @returns {JSX.Element} FeaturesCard component
  */
 

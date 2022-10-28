@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 
 /**
  * AccountCard
- * @param { string } title
- * @param { string } amount
- * @param { string } description
+ * @param {object} props
+ * @param { string } props.title - Account title
+ * @param { string } props.amount - Account amount
+ * @param { string } props.description - Account description
  * @returns { JSX.Element } AccountCard component
  */
 
