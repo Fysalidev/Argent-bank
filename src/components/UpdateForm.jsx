@@ -45,7 +45,7 @@ function UpdateForm() {
         </div>
       ) : (
         <div>
-          <div>
+          <div className="updateform_inputs">
             <input
               type="text"
               placeholder={user.firstName}

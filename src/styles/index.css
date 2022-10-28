@@ -20,8 +20,6 @@ body {
   min-height: 100vh;
 }
 
-
-
 .main {
   flex: 1;
 }
@@ -80,7 +78,7 @@ body {
 }
 
 .hero {
-  background-image: url('../assets/bank-tree.jpeg');
+  background-image: url("../assets/bank-tree.jpeg");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -261,17 +259,31 @@ body {
   flex: 1;
 }
 
+.updateform_inputs input {
+  margin:0.5rem;
+  width: 15rem;
+  height: 2rem;
+  text-align: center;
+  border-radius: 10rem;
+}
+
 .edit-button {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
   font-weight: bold;
   padding: 10px;
+  margin:0.5rem;
+  width: 10rem;
 }
 
 .header {
   color: #fff;
   margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin:0.5rem
 }
 
 .transaction-button {
