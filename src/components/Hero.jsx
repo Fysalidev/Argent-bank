@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * Hero
+ * @returns {JSX.Element} Hero component
+ */
+
 function Hero() {
   return (
     <div className="hero">

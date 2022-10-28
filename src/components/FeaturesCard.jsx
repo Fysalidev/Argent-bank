@@ -1,5 +1,14 @@
 import React from "react";
 
+/**
+ * FeaturesCards
+ * @param { string } icon
+ * @param { string } alt
+ * @param { string } title
+ * @param { string } text
+ * @returns {JSX.Element} FeaturesCard component
+ */
+
 function FeaturesCard({ icon, alt, title, text }) {
   return (
     <div className="feature-item">
@@ -9,5 +18,12 @@ function FeaturesCard({ icon, alt, title, text }) {
     </div>
   );
 }
+
+FeaturesCard.propTypes = {
+  icon: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 export default FeaturesCard;

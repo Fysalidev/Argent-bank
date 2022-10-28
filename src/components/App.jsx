@@ -6,6 +6,11 @@ import Error404 from "../pages/Error404";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+/**
+ * App
+ * @returns {JSX.Element} App component
+ */
+
 function App() {
   return (
     <BrowserRouter>

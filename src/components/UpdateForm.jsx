@@ -4,6 +4,11 @@ import { selectUser, selectUserJWT } from "../utils/redux/selectors";
 import { updateUser } from "../utils/redux/reducers";
 import Api from "../utils/api/Api";
 
+/**
+ * UpdateForm
+ * @returns {JSX.Element} UpdateForm component
+ */
+
 function UpdateForm() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
