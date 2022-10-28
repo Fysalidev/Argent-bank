@@ -39,7 +39,6 @@ function SignIn() {
       setError("");
 
       const tokenRequest = await new Api().tokenRequest(email, password);
-      console.log(tokenRequest);
 
       if (tokenRequest.status === 200) {
         const token = tokenRequest.body.token;
