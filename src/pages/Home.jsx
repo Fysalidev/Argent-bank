@@ -3,6 +3,11 @@ import Hero from "../components/Hero";
 import FeaturesCard from "../components/FeaturesCard";
 import { FEATURES_CARDS } from "../data/mockup";
 
+/**
+ * Home page
+ * @returns {JSX.Element} Home component
+ */
+
 function Home() {
   return (
     <main className="homepage">

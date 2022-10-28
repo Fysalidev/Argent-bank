@@ -4,6 +4,11 @@ import { useNavigate } from "react-router";
 import { logIn, setUser } from "../utils/redux/reducers";
 import Api from "../utils/api/Api";
 
+/**
+ * SignIn page
+ * @returns {JSX.Element} SignIn component
+ */
+
 function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

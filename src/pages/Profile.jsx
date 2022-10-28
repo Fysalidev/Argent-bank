@@ -7,6 +7,11 @@ import { selectUser, selectUserLogin } from "../utils/redux/selectors";
 import UpdateForm from "../components/UpdateForm";
 import AccountCard from "../components/AccountCard";
 
+/**
+ * Profile page
+ * @returns {JSX.Element} Profile component
+ */
+
 function Profile() {
   const isUserLogIn = useSelector(selectUserLogin);
   const user = useSelector(selectUser);
