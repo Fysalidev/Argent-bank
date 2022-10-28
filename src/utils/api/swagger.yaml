@@ -67,9 +67,9 @@ paths:
       description: API for fetching a user profile
       parameters:
         - in: header
-          type: string
           name: Authorization
           description: Attach Bearer JWT token
+          type: string
           required: true
       produces:
         - application/json
@@ -91,9 +91,9 @@ paths:
       description: API for updating a user profile
       parameters:
         - in: header
-          type: string
           name: Authorization
           description: Attach Bearer JWT token
+          type: string
           required: true
         - in: body
           name: body
@@ -142,6 +142,11 @@ paths:
       summary: User's Account Transactions
       description: List user's account transactions
       parameters:
+        - in: path
+          name: accountId
+          description: account ID
+          type: string
+          required: true
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
@@ -159,67 +164,77 @@ paths:
       security:
         - Bearer: []
   /transactions/{transactionId:}/category:
-      patch:
-        tags:
-          - Transaction Module
-        summary: update transaction's category
-        description : delete or update transaction's category
-        parameters:
-          - in: header
-            name: Authorization
-            description: Attach Bearer JWT token
-            type: string
-            required: true
-          - in: body
-            name: body
-            description: Update user profile attributes
-            required: true
-            schema:
-              $ref: "#/definitions/CategoryPayload"
-        produces:
-          - application/json
-        responses:
-          "200":
-            description: Update category retrieved successully
-            schema:
-              $ref: "#/definitions/ApiCategoryResponse"
-          "400":
-            description: Invalid Fields
-          "500":
-            description: Internal Server Error
-        security:
+    patch:
+      tags:
+        - Transaction Module
+      summary: update transaction's category
+      description: delete or update transaction's category
+      parameters:
+        - in: path
+          name: transactionId
+          description: transaction Id
+          type: string
+          required: true
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Payload for update transaction category
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryPayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Update category retrieved successully
+          schema:
+            $ref: "#/definitions/ApiCategoryResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+      security:
         - Bearer: []
   /transactions/{transactionId:}/notes:
-      patch:
-        tags:
-          - Transaction Module
-        summary: update transaction's notes
-        description : delete or update transaction's notes
-        parameters:
-          - in: header
-            name: Authorization
-            description: Attach Bearer JWT token
-            type: string
-            required: true
-          - in: body
-            name: body
-            description: Update transactions notes attributes
-            required: true
-            schema:
-              $ref: "#/definitions/NotesPayload"
-        produces:
-          - application/json
-        responses:
-          "200":
-            description: Update category retrieved successully
-            schema:
-              $ref: "#/definitions/ApiCategoryResponse"
-          "400":
-            description: Invalid Fields
-          "500":
-            description: Internal Server Error
-        security:
-        - Bearer: []    
+    patch:
+      tags:
+        - Transaction Module
+      summary: update transaction's notes
+      description: delete or update transaction's notes
+      parameters:
+        - in: path
+          name: transactionId
+          description: transaction Id
+          type: string
+          required: true
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Payload for update transaction's notes
+          required: true
+          schema:
+            $ref: "#/definitions/NotesPayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Update Notes retrieved successully
+          schema:
+            $ref: "#/definitions/ApiNotesResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+      security:
+        - Bearer: []
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -282,18 +297,19 @@ definitions:
         example: dlfkjsd4656LSJFKLS
       title:
         type: string
-        example : Argent Bank Checking (x8349)
-      amount :
-        type : string
-        example : $2,082.79
-      description :
-        type : string
-        example : Available Balance
+        example: Argent Bank Checking (x8349)
+      amount:
+        type: string
+        example: $2,082.79
+      description:
+        type: string
+        example: Available Balance
   ApiAccountsResponse:
     type: object
     properties:
       status:
         type: integer
+        example: 200
       message:
         type: string
         example: Accounts retrieved successfully
@@ -309,23 +325,23 @@ definitions:
         example: dlfkjsd4656LSJFKLS
       date:
         type: string
-        example : June 20th, 2020
-      description :
-        type : string
-        example : Golden Sun Bakery
-      amount :
-        type : string
-        example : $5.00
-      balance :
-        type : string
-        example : $2082.79
-      transactionType :
-        type : string
-        example : Electronic
-      category :
-        type : string
-        example : Food
-      notes :
+        example: June 20th, 2020
+      description:
+        type: string
+        example: Golden Sun Bakery
+      amount:
+        type: string
+        example: $5.00
+      balance:
+        type: string
+        example: $2082.79
+      transactionType:
+        type: string
+        example: Electronic
+      category:
+        type: string
+        example: Food
+      notes:
         type: string
         example: Cette transaction est étrange !!!
   ApiTransactionsResponse:
@@ -348,7 +364,7 @@ definitions:
         type: string
       category:
         type: string
-        example : Food
+        example: Food
   ApiCategoryResponse:
     type: object
     properties:
@@ -367,7 +383,7 @@ definitions:
         type: string
       Notes:
         type: string
-        example : Ceci est une nouvelle note modifiée...
+        example: Ceci est une nouvelle note modifiée...
   ApiNotesResponse:
     type: object
     properties:
@@ -376,7 +392,6 @@ definitions:
         example: 200
       message:
         type: string
-        example: transaction notes updated successfully
+        example: transaction Notes updated successfully
       body:
         $ref: "#/definitions/Transaction"
-
