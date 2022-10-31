@@ -135,7 +135,7 @@ paths:
           description: Internal Server Error
       security:
         - Bearer: []
-  /transactions/{accountId:}:
+  /transactions/{accountId}:
     get:
       tags:
         - Transaction Module
@@ -163,7 +163,7 @@ paths:
           description: Internal Server Error
       security:
         - Bearer: []
-  /transactions/{transactionId:}/category:
+  /transactions/{transactionId}/category:
     patch:
       tags:
         - Transaction Module
@@ -199,7 +199,7 @@ paths:
           description: Internal Server Error
       security:
         - Bearer: []
-  /transactions/{transactionId:}/notes:
+  /transactions/{transactionId}/notes:
     patch:
       tags:
         - Transaction Module
