@@ -39,20 +39,24 @@ class Api {
   };
 
   updateRequest = async (firstName, lastName, JWT) => {
-    const headers = new Headers();
-    headers.append("Authorization", `Bearer ${JWT}`);
-    headers.append("Content-Type", "application/json; charset=utf-8");
-    const options = {
-      method: "PUT",
-      body: JSON.stringify({ firstName, lastName }),
-      headers,
-    };
-    const request = await fetch(
-      "http://localhost:3001/api/v1/user/profile",
-      options
-    );
-    const response = await request.json();
-    return response;
+    try {
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${JWT}`);
+      headers.append("Content-Type", "application/json; charset=utf-8");
+      const options = {
+        method: "PUT",
+        body: JSON.stringify({ firstName, lastName }),
+        headers,
+      };
+      const request = await fetch(
+        "http://localhost:3001/api/v1/user/profile",
+        options
+      );
+      const response = await request.json();
+      return response;
+    } catch (error) {
+      return;
+    }
   };
 }
 export default Api;
